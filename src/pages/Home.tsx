@@ -11,23 +11,39 @@ import {
 import { Button } from '../components/Button'
 import { SkillCard } from '../components/SkillCard'
 
+interface SkillData {
+  id: string;
+  name: string;
+}
+
 export function Home() {
   // State para armazenar nova skill
   const [newSkill, setNewSkill] = useState('');
   // State para armazenar o array de skills
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState<SkillData[]>([]);
   // State para armazenar a saudação referente a hora atual
   const [greeting, setGreeting] = useState('');
 
   // função para adicionar novo item no state mySkills
   function handleAddNewSkill() {
-    // oldState usado com spread operator para pegar state antigo 
+    const data = {
+      // armazena hora atual em milisegundos e converte para string
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+    // oldState usado com spread operator (...) para pegar state antigo 
     // e adicionar a nova informação,
-    // ao inves desubstituir o array com o state newSkill
-    setMySkills(oldState => [...oldState, newSkill]);
+    setMySkills(oldState => [...oldState, data]);
+  }
+
+  function handleRemoveSkill(id: string) {
+    setMySkills(oldState => oldState.filter(
+      skill => skill.id !== id
+    ))
   }
 
   useEffect(() => {
+    // variavel para armazenar hora atual
     const currentHour = new Date().getHours();
 
     if (currentHour < 12) {
@@ -54,6 +70,7 @@ export function Home() {
         onChangeText={setNewSkill}
       />
       <Button
+        title="Add"
         onPress={handleAddNewSkill}
       />
       <Text
@@ -64,8 +81,13 @@ export function Home() {
 
       <FlatList
         data={mySkills}
-        keyExtractor={item => item}
-        renderItem={({ item }) => <SkillCard skill={item} />}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <SkillCard
+            skill={item.name}
+            onPress={() => handleRemoveSkill(item.id)}
+          />
+        )}
       />
     </View>
   )
