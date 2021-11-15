@@ -2,12 +2,15 @@
   <h1>MySkills</h1>
 </div>
 
+<div align="center">
 <table>
   <tr>
     <th width="45%"><img src=".github/app.png" /></th>
     <th width="45%"><img src=".github/appWorking.png" /></th>
   </tr>
 </table>
+</div>
+<br>
 
 ## 💻 Projeto
 
