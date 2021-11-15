@@ -39,7 +39,6 @@ No segundo execute:
 yarn android
 ```
 
-<br>
 **&copy; [Rocketseat](https://rocketseat.com.br/)**
 
 **Instrutor: [Rodrigo Gonçalves Santana](https://github.com/rodrigorgtic) | Instructor & Content Producer at Rocketseat**
